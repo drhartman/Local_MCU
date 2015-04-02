@@ -1,0 +1,358 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             Out_grb, CODE, READONLY
+    2 00000000                 EXPORT           output_grb
+    3 00000000         
+    4 00000000         ;R0 address of GpioPortB Data
+    5 00000000         ;R1 pointer to END of LED data matrix (start: row 7, col
+                        7, green value)
+    6 00000000         ;  will remain in row 7 to keep start of each ouput bit
+    7 00000000         ;  is decremented by one after each color is finished
+    8 00000000         ;R2 Address that is minipulated up each row
+    9 00000000         ;R3 Col count- starts at 24
+   10 00000000         ;R4 Data to be written
+   11 00000000         ;R5 the bit in the current byte in which we want to grab
+                       
+   12 00000000         ;R6 Row count- starts at 8
+   13 00000000         ;R7 wait counter- contains value to wait to hit timing
+   14 00000000         ;R8 tmp reg
+   15 00000000         ;R9  Minipulated to get desired bit
+   16 00000000         ;R10 0x00
+   17 00000000         ;R11 0xFF
+   18 00000000         
+   19 00000000                 ENTRY
+   20 00000000         output_grb
+   21 00000000 E92D 1FE0       PUSH             {R5-R12}
+   22 00000004         
+   23 00000004         ;Must reset the LEDs to get them ready for the data
+   24 00000004 F04F 0A00       MOV              R10, #0
+   25 00000008 F04F 0BFF       MOV              R11, #0xFF
+   26 0000000C F04F 0C02       MOV              R12, #2
+   27 00000010         
+   28 00000010         inits
+   29 00000010         ;Initializations
+   30 00000010 F04F 0400       MOV              R4, #0      ;data to be written
+                                                             starts at 0
+   31 00000014 F04F 0507       MOV              R5, #7      ;start the bit coun
+                                                            t with the MSB
+   32 00000018 F04F 0608       MOV              R6, #8      ;start at row/pin 7
+                                                            ... but branch when
+                                                             0
+   33 0000001C F04F 0318       MOV              R3, #24     ;start at col 23...
+                                                            . but DONE when it 
+                                                            is 0 
+   34 00000020 460A            MOV              R2, R1      ;R2 is the minipula
+                                                            ted address from cu
+                                                            rrent
+   35 00000022         ;  rows "base" (row 7)
+   36 00000022         
+   37 00000022         start_bit
+   38 00000022         ;Start driving the pins with a 0xFF
+   39 00000022 F880 B000       STRB             R11, [R0]
+   40 00000026         ;accumulate the data to be written
+   41 00000026         next_row
+   42 00000026 F892 9000       LDRB             R9, [R2]    ;get the color valu
+                                                            e
+   43 0000002A FA29 F905       LSR              R9, R9, R5  ;shift right to get
+                                                             desired bit in LSB
+                                                            
+   44 0000002E FBB9 F8FC       UDIV             R8, R9, R12 ;R8 := R7 / 2   ~MO
+                                                            D
+   45 00000032 FB0C 9918       MLS              R9, R12, R8, R9 ;R7 := (R7 – (R
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            12 * R8))   ~MOD
+   46 00000036 EA4F 0444       LSL              R4, R4, #1  ;Make room for the 
+                                                            new bit value
+   47 0000003A 444C            ADD              R4, R4, R9
+   48 0000003C         ;Done with that row
+   49 0000003C F1A6 0601       SUB              R6, R6, #1
+   50 00000040 F1A2 0218       SUB              R2, R2, #24 ;adjust the address
+                                                             to the byte in the
+                                                             row above
+   51 00000044         
+   52 00000044 B906            CBNZ             R6, to_nxtRow
+   53 00000046 E000            B                output_Data ;once we accumulate
+                                                            d the data in R4 - 
+                                                            output it
+   54 00000048         to_nxtRow
+   55 00000048 E7ED            B                next_row
+   56 0000004A         
+   57 0000004A         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   58 0000004A         
+   59 0000004A         output_Data
+   60 0000004A F44F 77BF       MOV              R7, #382    ;Must finish the 40
+                                                            us at 0xFF
+   61 0000004E         t1_wait
+   62 0000004E F1A7 0701       SUB              R7, R7, #1
+   63 00000052 B907            CBNZ             R7, to_t1
+   64 00000054 E000            B                t2
+   65 00000056         to_t1
+   66 00000056 E7FA            B                t1_wait
+   67 00000058         
+   68 00000058         t2
+   69 00000058 7004            STRB             R4, [R0]    ;For next 40us the 
+                                                            pin logic should be
+                                                             exactly what the d
+                                                            ata is
+   70 0000005A F44F 77C8       MOV              R7, #400
+   71 0000005E         t2_wait
+   72 0000005E F1A7 0701       SUB              R7, R7, #1
+   73 00000062 B907            CBNZ             R7, to_t2
+   74 00000064 E000            B                t3
+   75 00000066         to_t2
+   76 00000066 E7FA            B                t2_wait
+   77 00000068         
+   78 00000068         t3
+   79 00000068 F880 A000       STRB             R10, [R0]   ;For last 45us the 
+                                                            pin logic should be
+                                                             0x00
+   80 0000006C F44F 77E1       MOV              R7, #450
+   81 00000070         t3_wait
+   82 00000070 F1A7 0701       SUB              R7, R7, #1
+   83 00000074 B907            CBNZ             R7, to_t3
+   84 00000076 E000            B                check_bit
+   85 00000078         to_t3
+   86 00000078 E7FA            B                t3_wait
+   87 0000007A         
+   88 0000007A         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   89 0000007A         
+   90 0000007A         check_bit
+   91 0000007A B905            CBNZ             R5, to_nextBit ;check the bit c
+                                                            ount + 1, if it's 0
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                             check the column
+   92 0000007C E007            B                check_col
+   93 0000007E         to_nextBit
+   94 0000007E F1A5 0501       SUB              R5, R5, #1  ;need the next bit 
+                                                            in this col
+   95 00000082 460A            MOV              R2, R1      ;keep the col base 
+                                                            address
+   96 00000084 F04F 0400       MOV              R4, #0      ;reset the data to 
+                                                            be sent
+   97 00000088 F04F 0608       MOV              R6, #8      ;reset the row coun
+                                                            t
+   98 0000008C E7C9            B                start_bit
+   99 0000008E         
+  100 0000008E         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  101 0000008E         
+  102 0000008E         check_col
+  103 0000008E F1A3 0301       SUB              R3, R3, #1
+  104 00000092 B903            CBNZ             R3, to_nextCol
+  105 00000094 E009            B                over
+  106 00000096         to_nextCol
+  107 00000096 F1A1 0101       SUB              R1, R1, #1  ;decrement the col 
+                                                            base address to get
+                                                             the next col vals
+  108 0000009A 460A            MOV              R2, R1
+  109 0000009C F04F 0400       MOV              R4, #0      ;reset the data to 
+                                                            be sent
+  110 000000A0 F04F 0608       MOV              R6, #8      ;reset the row coun
+                                                            t
+  111 000000A4 F04F 0507       MOV              R5, #7      ;reset the bit to t
+                                                            he MSB
+  112 000000A8 E7BB            B                start_bit
+  113 000000AA         
+  114 000000AA         
+  115 000000AA         over
+  116 000000AA E8BD 1FE0       POP              {R5-R12}
+  117 000000AE 4770            BX               LR
+  118 000000B0                 END
+Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=output_g
+rb.d -ooutput_grb.o -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\INC\Luminary --pr
+edefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --list=output_grb.lst o
+utput_grb.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Out_grb 00000000
+
+Symbol: Out_grb
+   Definitions
+      At line 1 in file output_grb.s
+   Uses
+      None
+Comment: Out_grb unused
+check_bit 0000007A
+
+Symbol: check_bit
+   Definitions
+      At line 90 in file output_grb.s
+   Uses
+      At line 84 in file output_grb.s
+Comment: check_bit used once
+check_col 0000008E
+
+Symbol: check_col
+   Definitions
+      At line 102 in file output_grb.s
+   Uses
+      At line 92 in file output_grb.s
+Comment: check_col used once
+inits 00000010
+
+Symbol: inits
+   Definitions
+      At line 28 in file output_grb.s
+   Uses
+      None
+Comment: inits unused
+next_row 00000026
+
+Symbol: next_row
+   Definitions
+      At line 41 in file output_grb.s
+   Uses
+      At line 55 in file output_grb.s
+Comment: next_row used once
+output_Data 0000004A
+
+Symbol: output_Data
+   Definitions
+      At line 59 in file output_grb.s
+   Uses
+      At line 53 in file output_grb.s
+Comment: output_Data used once
+output_grb 00000000
+
+Symbol: output_grb
+   Definitions
+      At line 20 in file output_grb.s
+   Uses
+      At line 2 in file output_grb.s
+Comment: output_grb used once
+over 000000AA
+
+Symbol: over
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 115 in file output_grb.s
+   Uses
+      At line 105 in file output_grb.s
+Comment: over used once
+start_bit 00000022
+
+Symbol: start_bit
+   Definitions
+      At line 37 in file output_grb.s
+   Uses
+      At line 98 in file output_grb.s
+      At line 112 in file output_grb.s
+
+t1_wait 0000004E
+
+Symbol: t1_wait
+   Definitions
+      At line 61 in file output_grb.s
+   Uses
+      At line 66 in file output_grb.s
+Comment: t1_wait used once
+t2 00000058
+
+Symbol: t2
+   Definitions
+      At line 68 in file output_grb.s
+   Uses
+      At line 64 in file output_grb.s
+Comment: t2 used once
+t2_wait 0000005E
+
+Symbol: t2_wait
+   Definitions
+      At line 71 in file output_grb.s
+   Uses
+      At line 76 in file output_grb.s
+Comment: t2_wait used once
+t3 00000068
+
+Symbol: t3
+   Definitions
+      At line 78 in file output_grb.s
+   Uses
+      At line 74 in file output_grb.s
+Comment: t3 used once
+t3_wait 00000070
+
+Symbol: t3_wait
+   Definitions
+      At line 81 in file output_grb.s
+   Uses
+      At line 86 in file output_grb.s
+Comment: t3_wait used once
+to_nextBit 0000007E
+
+Symbol: to_nextBit
+   Definitions
+      At line 93 in file output_grb.s
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+   Uses
+      At line 91 in file output_grb.s
+Comment: to_nextBit used once
+to_nextCol 00000096
+
+Symbol: to_nextCol
+   Definitions
+      At line 106 in file output_grb.s
+   Uses
+      At line 104 in file output_grb.s
+Comment: to_nextCol used once
+to_nxtRow 00000048
+
+Symbol: to_nxtRow
+   Definitions
+      At line 54 in file output_grb.s
+   Uses
+      At line 52 in file output_grb.s
+Comment: to_nxtRow used once
+to_t1 00000056
+
+Symbol: to_t1
+   Definitions
+      At line 65 in file output_grb.s
+   Uses
+      At line 63 in file output_grb.s
+Comment: to_t1 used once
+to_t2 00000066
+
+Symbol: to_t2
+   Definitions
+      At line 75 in file output_grb.s
+   Uses
+      At line 73 in file output_grb.s
+Comment: to_t2 used once
+to_t3 00000078
+
+Symbol: to_t3
+   Definitions
+      At line 85 in file output_grb.s
+   Uses
+      At line 83 in file output_grb.s
+Comment: to_t3 used once
+20 symbols
+352 symbols in table
