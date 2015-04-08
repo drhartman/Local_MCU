@@ -1,1 +1,1 @@
-output_grb.o: output_grb.s
+.\output_grb.o: output_grb.s

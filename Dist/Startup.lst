@@ -645,9 +645,16 @@ ARM Macro Assembler    Page 10
   406 0000001C         ;*******************************************************
                        ***********************
   407 0000001C                 END
-Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=Startup.
-d -oStartup.o -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\INC\Luminary --predefin
-e="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --list=Startup.lst Startup.s
+Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\startu
+p.d -o.\startup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\
+ARM\Inc\Luminary --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --
+
+
+
+ARM Macro Assembler    Page 11 
+
+
+list=.\startup.lst Startup.s
 
 
 

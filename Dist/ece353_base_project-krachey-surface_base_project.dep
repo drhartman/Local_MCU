@@ -1,47 +1,47 @@
 Dependencies for Project 'ece353_base_project-krachey-surface', Target 'base_project': (DO NOT MODIFY !)
-F (.\Startup.s)(0x5515D70F)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
-F (.\main.c)(0x5516D86B)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "main.o" --omf_browse "main.crf" --depend "main.d")
-I (C:\Keil\ARM\RV31\INC\stdint.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdlib.h)(0x4E78B3BE)
-I (lm4f120h5qr.h)(0x5515A123)
-I (board_config.h)(0x52A6B80D)
-I (inc/hw_types.h)(0x52A6B80E)
-I (gpio.h)(0x52A6B80D)
-I (C:\Keil\ARM\RV31\INC\stdbool.h)(0x4E78B3BE)
-I (UART.h)(0x550C2CF6)
-I (C:\Keil\ARM\RV31\INC\errno.h)(0x4E78B3BE)
-I (timer0.h)(0x52A6B80E)
-I (i2c.h)(0x5515D533)
-F (.\events.c)(0x5516D2B5)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "events.o" --omf_browse "events.crf" --depend "events.d")
-I (events.h)(0x52A6B80D)
-I (C:\Keil\ARM\RV31\INC\stdint.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdbool.h)(0x4E78B3BE)
-I (lm4f120h5qr.h)(0x5515A123)
-I (gpio.h)(0x52A6B80D)
-I (uart.h)(0x550C2CF6)
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\errno.h)(0x4E78B3BE)
-I (i2c.h)(0x5515D533)
-F (.\uart.c)(0x550C3B95)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "uart.o" --omf_browse "uart.crf" --depend "uart.d")
-I (uart.h)(0x550C2CF6)
-I (C:\Keil\ARM\RV31\INC\stdint.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdbool.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\errno.h)(0x4E78B3BE)
-I (lm4f120h5qr.h)(0x5515A123)
-F (.\output_grb.s)(0x5516DC11)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" --list "output_grb.lst" --xref -o "output_grb.o" --depend "output_grb.d")
-F (.\i2c.c)(0x5515D430)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "i2c.o" --omf_browse "i2c.crf" --depend "i2c.d")
-I (i2c.h)(0x5515D533)
-I (C:\Keil\ARM\RV31\INC\stdint.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdbool.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78B3BE)
-I (C:\Keil\ARM\RV31\INC\errno.h)(0x4E78B3BE)
-I (lm4f120h5qr.h)(0x5515A123)
-F (.\lib\pll.lib)(0x52A6B80E)()
-F (.\lib\gpio.lib)(0x52A6B80E)()
-F (.\lib\systick.lib)(0x52A6B80E)()
-F (.\lib\portC_init.lib)(0x52A6B80E)()
-F (.\lib\adc.lib)(0x52A6B80E)()
-F (.\lib\matrix_led.lib)(0x52A6B80E)()
-F (.\lib\timer0.lib)(0x52A6B80E)()
+F (.\Startup.s)(0x551CB1CF)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\main.c)(0x551CBDDA)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
+I (lm4f120h5qr.h)(0x551CB1CF)
+I (board_config.h)(0x551CB1CF)
+I (inc/hw_types.h)(0x551CB1CF)
+I (gpio.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (UART.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\errno.h)(0x51C87C24)
+I (timer0.h)(0x551CB1CF)
+I (i2c.h)(0x551CB1CF)
+F (.\events.c)(0x551CB1CF)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\events.o --omf_browse .\events.crf --depend .\events.d)
+I (events.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (lm4f120h5qr.h)(0x551CB1CF)
+I (gpio.h)(0x551CB1CF)
+I (uart.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\errno.h)(0x51C87C24)
+I (i2c.h)(0x551CB1CF)
+F (.\uart.c)(0x551CB1CF)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\uart.o --omf_browse .\uart.crf --depend .\uart.d)
+I (uart.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\errno.h)(0x51C87C24)
+I (lm4f120h5qr.h)(0x551CB1CF)
+F (.\output_grb.s)(0x551CB1CF)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\output_grb.lst --xref -o .\output_grb.o --depend .\output_grb.d)
+F (.\i2c.c)(0x551CB1CF)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\i2c.o --omf_browse .\i2c.crf --depend .\i2c.d)
+I (i2c.h)(0x551CB1CF)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\errno.h)(0x51C87C24)
+I (lm4f120h5qr.h)(0x551CB1CF)
+F (.\lib\pll.lib)(0x551CB1CF)()
+F (.\lib\gpio.lib)(0x551CB1CF)()
+F (.\lib\systick.lib)(0x551CB1CF)()
+F (.\lib\portC_init.lib)(0x551CB1CF)()
+F (.\lib\adc.lib)(0x551CB1CF)()
+F (.\lib\matrix_led.lib)(0x551CB1CF)()
+F (.\lib\timer0.lib)(0x551CB1CF)()

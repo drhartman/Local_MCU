@@ -1,1 +1,1 @@
-Startup.o: Startup.s
+.\startup.o: Startup.s
