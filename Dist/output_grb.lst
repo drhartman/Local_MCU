@@ -154,6 +154,7 @@ ARM Macro Assembler    Page 3
                                                             t
   102 00000096 F04F 0507       MOV              R5, #7      ;reset the bit to t
                                                             he MSB
+<<<<<<< HEAD
   103 0000009A E7C2            B                start_bit
   104 0000009C         
   105 0000009C         
@@ -165,6 +166,19 @@ Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\out
 put_grb.d -o.\output_grb.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -
 IC:\Keil\ARM\Inc\TI\TM4C123 --predefine="__EVAL SETA 1" --predefine="__MICROLIB
  SETA 1" --list=.\output_grb.lst output_grb.s
+=======
+  112 000000A8 E7BB            B                start_bit
+  113 000000AA         
+  114 000000AA         
+  115 000000AA         over
+  116 000000AA E8BD 1FE0       POP              {R5-R12}
+  117 000000AE 4770            BX               LR
+  118 000000B0                 END
+Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\output
+_grb.d -o.\output_grb.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:
+\Keil\ARM\Inc\Luminary --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA
+ 1" --list=.\output_grb.lst output_grb.s
+>>>>>>> parent of a9669e8... LED test
 
 
 
@@ -320,5 +334,10 @@ Symbol: to_t3
    Uses
       At line 74 in file output_grb.s
 Comment: to_t3 used once
+<<<<<<< HEAD
 17 symbols
 350 symbols in table
+=======
+20 symbols
+352 symbols in table
+>>>>>>> parent of a9669e8... LED test

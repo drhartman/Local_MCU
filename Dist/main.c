@@ -41,7 +41,7 @@ volatile UART_PERIPH *Uart3 = (UART_PERIPH *)UART3;
 volatile I2C_PERIPH *i2c1 = (I2C_PERIPH *)I2C1;
 
 //software represention of single board's LEDs
-//volatile uint8_t colorMatrix[8][24];
+volatile uint8_t colorMatrix[8][24];
 //software represention of single board's Sensors
 //0 = off, 1 = on
 volatile uint8_t sensorMatrix[4][4]; 
@@ -133,11 +133,6 @@ void initPorts(void){
 int 
 main(void)
 {
-	
-	uint8_t *matrixEnd;
-	uint8_t colorMatrix[8][24];
-	int i;
-	int j;
     // Initialize the PLLs so the the main CPU frequency is 80MHz
     PLL_Init();
 
@@ -156,6 +151,7 @@ main(void)
 
 	//Initialize Peripherals
 	InitializeUART(UART3);
+<<<<<<< HEAD
 	//InitializeI2C(I2C1);
 	
 	for(i = 0; i <= 7; i++)
@@ -171,12 +167,16 @@ main(void)
 	//output_grb(0x40005000 , &colorMatrix[7][23]);
 	
 	GpioPortB->Data = 0x00;
+=======
+	InitializeI2C(I2C1);
+>>>>>>> parent of a9669e8... LED test
 	
 
 	while(1)
     {
 		//EXAMPLE ON HOW TO CHANGE A SPECIFIC LED'S COLOR VALUE
 		//I want led's row 4, column 7, blue value
+<<<<<<< HEAD
 		//colorMatrix[4][7*COLOFFSET+BLUE] = 0x0F;
 			
 //			if(OneSecond)
@@ -185,6 +185,9 @@ main(void)
 //				OneSecond = false;
 //				
 //			}
+=======
+		colorMatrix[4][7*COLOFFSET+BLUE] = 0x0F;
+>>>>>>> parent of a9669e8... LED test
 
     }; 
 }

@@ -645,16 +645,16 @@ ARM Macro Assembler    Page 10
   406 0000001C         ;*******************************************************
                        ***********************
   407 0000001C                 END
-Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\sta
-rtup.d -o.\startup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Ke
-il\ARM\Inc\TI\TM4C123 --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 
+Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\startu
+p.d -o.\startup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\
+ARM\Inc\Luminary --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --
 
 
 
 ARM Macro Assembler    Page 11 
 
 
-1" --list=.\startup.lst Startup.s
+list=.\startup.lst Startup.s
 
 
 
@@ -1038,4 +1038,4 @@ Symbol: __main
       At line 274 in file Startup.s
 Comment: __main used once
 5 symbols
-359 symbols in table
+358 symbols in table
