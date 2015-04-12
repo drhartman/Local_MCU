@@ -29,7 +29,7 @@ inits
 	;Initializations
 	MOV		R4,	#0	  ;data to be written starts at 0
 	MOV		R5, #7	  ;start the bit count with the MSB
-	MOV 	R6, #8	  ;start at row/pin 7... but branch when 0
+	MOV 	R6, #2	  ;start at row/pin 7... but branch when 0
 	MOV		R3, #24	  ;start at col 23.... but DONE when it is 0 
 	MOV		R2, R1	  ;R2 is the minipulated address from current
 					  ;		rows "base" (row 7)
@@ -57,17 +57,8 @@ to_nxtRow
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 output_Data
-	MOV		R7, #382  ;Must finish the 40us at 0xFF
-t1_wait
-	SUB		R7, R7, #1	
-	CBNZ	R7, to_t1
-	B		t2
-to_t1
-	B		t1_wait
-
-t2
 	STRB	R4, [R0]  ;For next 40us the pin logic should be exactly what the data is
-	MOV		R7, #400
+	MOV		R7, #4
 t2_wait
     SUB		R7, R7, #1	
 	CBNZ	R7, to_t2
@@ -77,7 +68,7 @@ to_t2
 
 t3
 	STRB	R10, [R0]  ;For last 45us the pin logic should be 0x00
-	MOV		R7, #450
+	MOV		R7, #5 
 t3_wait
     SUB		R7, R7, #1	
 	CBNZ	R7, to_t3

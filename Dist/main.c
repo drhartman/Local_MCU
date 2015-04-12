@@ -160,15 +160,17 @@ main(void)
 	
 	for(i = 0; i <= 7; i++)
 	{
-		for(j = 0; j <= 23; j++)
+		for(j = 0; j <= 7; j++)
 		{
-			colorMatrix[i][j*COLOFFSET+BLUE] = 0x0F;
+			colorMatrix[i][j*COLOFFSET+BLUE] = 0x00;
 		}
 	}
 	
 	
 	
-	output_grb(0x40005000 , &colorMatrix[7][23]);
+	//output_grb(0x40005000 , &colorMatrix[7][23]);
+	
+	GpioPortB->Data = 0x00;
 	
 
 	while(1)
@@ -176,6 +178,13 @@ main(void)
 		//EXAMPLE ON HOW TO CHANGE A SPECIFIC LED'S COLOR VALUE
 		//I want led's row 4, column 7, blue value
 		//colorMatrix[4][7*COLOFFSET+BLUE] = 0x0F;
+			
+//			if(OneSecond)
+//			{
+//				output_grb(0x400053FC , &colorMatrix[7][23]);
+//				OneSecond = false;
+//				
+//			}
 
     }; 
 }

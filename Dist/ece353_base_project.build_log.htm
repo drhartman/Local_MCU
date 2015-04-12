@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\CCS\Desktop\MCU\Local_MCU\Dist\ece353_base_project-krachey-surface.uvproj
-Project File Date:  04/10/2015
+Project File Date:  04/11/2015
 
 <h2>Output:</h2>
 Rebuild target 'base_project'
@@ -16,7 +16,9 @@ main.c(77): warning:  #550-D: variable "delay" was set but never used
         uint32_t delay;
 main.c(137): warning:  #177-D: variable "matrixEnd" was declared but never referenced
         uint8_t *matrixEnd;
-main.c: 3 warnings, 0 errors
+main.c(138): warning:  #550-D: variable "colorMatrix" was set but never used
+        uint8_t colorMatrix[8][24];
+main.c: 4 warnings, 0 errors
 compiling events.c...
 i2c.h(41): warning:  #1-D: last line of file ends without a newline
                         
@@ -34,15 +36,11 @@ i2c.c(12): warning:  #550-D: variable "delay" was set but never used
 i2c.c: 2 warnings, 0 errors
 linking...
 .\ece353_base_project.axf: Warning: L6305W: Image does not have an entry point. (Not specified or not set due to multiple choices.)
-Program Size: Code=2284 RO-data=32 RW-data=312 ZI-data=256  
+Program Size: Code=2264 RO-data=32 RW-data=312 ZI-data=256  
 Finished: 0 information, 1 warning and 0 error messages.
-".\ece353_base_project.axf" - 0 Error(s), 8 Warning(s).
+".\ece353_base_project.axf" - 0 Error(s), 9 Warning(s).
 Load "C:\\Users\\CCS\\Desktop\\MCU\\Local_MCU\\Dist\\ece353_base_project.axf" 
-Internal DLL Error
-Error: Flash Download failed  -  Target DLL has been cancelled
-Load "C:\\Users\\CCS\\Desktop\\MCU\\Local_MCU\\Dist\\ece353_base_project.axf" 
-Internal DLL Error
-Error: Flash Download failed  -  Target DLL has been cancelled
-Load "C:\\Users\\CCS\\Desktop\\MCU\\Local_MCU\\Dist\\ece353_base_project.axf" 
-Internal DLL Error
-Error: Flash Download failed  -  Target DLL has been cancelled
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
